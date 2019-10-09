@@ -17,7 +17,7 @@ namespace HelloWorld
         {
             Control.CheckForIllegalCrossThreadCalls = false;
         }
-        // static Queue<string> q = new Queue<string>(); //存储返回列表队列
+        // static Queue<string> q = new Queue<string>(); //返回值队列
 
         private void button1_Click(object sender, EventArgs e)
         {
