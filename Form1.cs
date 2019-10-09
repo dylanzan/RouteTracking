@@ -59,9 +59,6 @@ namespace HelloWorld
             {
                 string res = outLine.Data;
                 string[] resSqlit = System.Text.RegularExpressions.Regex.Split(res.Trim(), "\\s+");
-                Console.WriteLine(res.Trim());
-
-                Console.WriteLine(resSqlit.Length);
 
                 StringBuilder sb = new StringBuilder(this.richTextBox1.Text);
                 this.richTextBox1.Text = sb.AppendLine(res).ToString();
@@ -69,29 +66,39 @@ namespace HelloWorld
                 this.richTextBox1.ScrollToCaret();
 
                 RegexUtils reu = new RegexUtils();
+                RequestHelp rh = null;
+                JsonParseUtils jsu = null;
 
                 char[] charParms = new char[] { '[', ']' };
                 string resEnd = resSqlit[resSqlit.Length - 1];
                 string ipaddr = resEnd.Trim(charParms);
 
-                if (reu.IPCheck(ipaddr))
+                //判断ip 类型
+                switch (reu.IPCheckForS(ipaddr))
                 {
-                    RequestHelp rh = null;
-                    JsonParseUtils jsu = null;
-                    try
-                    {
-                        jsu=new JsonParseUtils();
+                    case "ipv4":
+                        if (reu.IPCheck(ipaddr))
+                        {
+                            jsu = new JsonParseUtils();
+                            rh = new RequestHelp();
+                            string ipv4JsonResponse = rh.GetAsync("http://39.96.177.233/" + ipaddr);
+                            string ipv4Zone = jsu.JsonParse(ipv4JsonResponse);
+                            listBox1.Items.Add(ipaddr + " " + ipv4Zone);
+                        }
+                        break;
+                    case "ipv6":
+                        jsu = new JsonParseUtils();
                         rh = new RequestHelp();
-                        string josnResponse = rh.GetAsync("http://39.96.177.233/" + ipaddr);
-                        string zone=jsu.JsonParse(josnResponse);
-                        listBox1.Items.Add(ipaddr + " " + zone);
-                    }
-                    catch
-                    {
-                        throw;
-                    }
+                        string ipv6Zone = rh.GetAsync("http://freeapi.ipip.net/" + ipaddr);
+                        listBox1.Items.Add(ipaddr + " " + ipv6Zone);
+                        break;
+                    case "nothing":
+                        //MessageBox.Show("并不是ip有效类型。");
+                        break;
+                    default:
+                        MessageBox.Show("无效值");
+                        break;
                 }
-
             }
         }
 
@@ -103,7 +110,7 @@ namespace HelloWorld
         private void button2_Click(object sender, EventArgs e)
         {
             RequestHelp rh = new RequestHelp();
-            string ipRes=rh.GetAsync("http://39.96.177.233");
+            string ipRes = rh.GetAsync("http://39.96.177.233");
             MessageBox.Show(ipRes);
         }
     }
