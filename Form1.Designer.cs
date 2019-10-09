@@ -77,7 +77,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(3, 39);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(397, 377);
+            this.richTextBox1.Size = new System.Drawing.Size(358, 377);
             this.richTextBox1.TabIndex = 5;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -86,9 +86,9 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(406, 39);
+            this.listBox1.Location = new System.Drawing.Point(367, 39);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(363, 376);
+            this.listBox1.Size = new System.Drawing.Size(361, 376);
             this.listBox1.TabIndex = 6;
             // 
             // button2
@@ -105,7 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(771, 419);
+            this.ClientSize = new System.Drawing.Size(730, 419);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.richTextBox1);
@@ -114,6 +114,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "RouteTracking";
             this.Load += new System.EventHandler(this.Form1_Load);

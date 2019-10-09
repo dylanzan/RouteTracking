@@ -13,7 +13,7 @@ namespace HelloWorld.utils
             try
             {
                 hc = new HttpClient();
-                hc.DefaultRequestHeaders.Add("UserAgent", "curl");
+                hc.DefaultRequestHeaders.Add("User-Agent","Chrome");
                 HttpResponseMessage hrm = hc.GetAsync(httpUrl).Result;
 
                 if (hrm.IsSuccessStatusCode)

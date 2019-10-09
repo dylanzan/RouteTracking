@@ -9,3 +9,5 @@ D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.csproj.CopyComplete
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\HelloWorld.exe
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\HelloWorld.pdb
+D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\Newtonsoft.Json.dll
+D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\Newtonsoft.Json.xml

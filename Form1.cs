@@ -77,10 +77,13 @@ namespace HelloWorld
                 if (reu.IPCheck(ipaddr))
                 {
                     RequestHelp rh = null;
+                    JsonParseUtils jsu = null;
                     try
                     {
+                        jsu=new JsonParseUtils();
                         rh = new RequestHelp();
-                        string zone = rh.GetAsync("http://freeapi.ipip.net/" + ipaddr);
+                        string josnResponse = rh.GetAsync("http://39.96.177.233/" + ipaddr);
+                        string zone=jsu.JsonParse(josnResponse);
                         listBox1.Items.Add(ipaddr + " " + zone);
                     }
                     catch
@@ -100,7 +103,7 @@ namespace HelloWorld
         private void button2_Click(object sender, EventArgs e)
         {
             RequestHelp rh = new RequestHelp();
-            string ipRes=rh.GetAsync("http://myip.ipip.net");
+            string ipRes=rh.GetAsync("http://39.96.177.233");
             MessageBox.Show(ipRes);
         }
     }
