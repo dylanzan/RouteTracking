@@ -10,3 +10,7 @@ D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\RouteTracking.
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\RouteTracking.pdb
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.exe
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.pdb
+D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\RouteTracking.exe.manifest
+D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\RouteTracking.application
+D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.exe.manifest
+D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.application

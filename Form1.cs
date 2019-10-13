@@ -12,19 +12,35 @@ namespace HelloWorld
         {
             InitializeComponent();
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
         }
         // static Queue<string> q = new Queue<string>(); //返回值队列
 
+        static int psTaskID = -1; //检测是否有上次执行的task，如果值为-1，则执行，否则kill掉上次执行未完成任务
         private void button1_Click(object sender, EventArgs e)
         {
+            
+          
             richTextBox1.Text = "";
             listBox1.Items.Clear();
             Process ps = null;
-            //stringSplitUtils sp = new stringSplitUtils();
+
+            Console.WriteLine("method ininer " + psTaskID);
+
+            if (psTaskID != -1)
+            {
+                ProcessCmdUtils procKill = new ProcessCmdUtils();
+                bool killStatus=procKill.KillProcExec(psTaskID);
+                Console.WriteLine("try external "+psTaskID);
+                if (killStatus)
+                {
+                    psTaskID = -1;
+                }
+            }
+            
             try
             {
                 //rh = new RequestHelp();
@@ -33,11 +49,15 @@ namespace HelloWorld
 
                 string cmd = "TRACERT.exe " + address;
 
-                ps = new ProcessCmdUtils().ExecCmd();
+                ps = ProcessCmdUtils.ExecCmd();
 
                 ps.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
 
                 ps.Start();
+
+                psTaskID = ps.Id;//将运行的process name 赋值给 paTaskName
+
+                Console.WriteLine("try ininer "+psTaskID);
 
                 ps.StandardInput.WriteLine(cmd + "&exit");
                 ps.StandardInput.AutoFlush = true;
@@ -48,8 +68,12 @@ namespace HelloWorld
             {
                 throw;
             }
+            finally
+            {
+                ps.Close();
+                //psTaskID = -1;
+            }
 
-            ps.Close();
         }
 
 
@@ -82,6 +106,7 @@ namespace HelloWorld
                             jsu = new JsonParseUtils();
                             rh = new RequestHelp();
                             string ipv4JsonResponse = rh.GetAsync("http://39.96.177.233/" + ipaddr);
+                            //string ipv4JsonResponse = rh.GetAsync("http://127.0.0.1:8081/" + ipaddr);
                             string ipv4Zone = jsu.JsonParse(ipv4JsonResponse);
                             listBox1.Items.Add(ipaddr + " " + ipv4Zone);
                         }
@@ -111,6 +136,7 @@ namespace HelloWorld
         {
             RequestHelp rh = new RequestHelp();
             string ipRes = rh.GetAsync("http://39.96.177.233");
+            //string ipRes = rh.GetAsync("http://127.0.0.1:8081");
             MessageBox.Show(ipRes);
         }
     }

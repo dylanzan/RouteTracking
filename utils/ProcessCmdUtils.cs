@@ -5,7 +5,7 @@ namespace HelloWorld.utils
 {
     class ProcessCmdUtils
     {
-        public Process ExecCmd()
+        public static Process ExecCmd()
         {
             //cmd = cmd.Trim().TrimEnd('&') + "&exit";
 
@@ -27,6 +27,31 @@ namespace HelloWorld.utils
             }
 
             return p;
+        }
+
+        public bool KillProcExec(int procId)
+        {
+            string cmd = string.Format("taskkill /f /t /im {0}", procId);
+
+            Process ps = null;
+            try
+            {
+                ps = ExecCmd();
+                ps.Start();
+                ps.StandardInput.WriteLine(cmd + "&exit");
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                ps.Close();
+            }
+            
+
+            return false;
         }
     }
 }
