@@ -14,6 +14,7 @@ namespace HelloWorld.utils
             {
                 hc = new HttpClient();
                 hc.DefaultRequestHeaders.Add("User-Agent", "Chrome");
+                hc.DefaultRequestHeaders.Add("Authorization", "10001 qwertyuiop123456asdfghjkl");
                 HttpResponseMessage hrm = hc.GetAsync(httpUrl).Result;
 
                 if (hrm.IsSuccessStatusCode)
@@ -23,7 +24,7 @@ namespace HelloWorld.utils
             }
             catch (Exception e)
             {
-                throw e;
+                throw;
             }
             return responseData;
         }
