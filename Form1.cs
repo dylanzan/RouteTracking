@@ -12,35 +12,31 @@ namespace HelloWorld
         {
             InitializeComponent();
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
         }
-        // static Queue<string> q = new Queue<string>(); //返回值队列
 
         static int psTaskID = -1; //检测是否有上次执行的task，如果值为-1，则执行，否则kill掉上次执行未完成任务
         private void button1_Click(object sender, EventArgs e)
         {
-            
-          
+
             richTextBox1.Text = "";
             listBox1.Items.Clear();
             Process ps = null;
 
-            Console.WriteLine("method ininer " + psTaskID);
-
             if (psTaskID != -1)
             {
                 ProcessCmdUtils procKill = new ProcessCmdUtils();
-                bool killStatus=procKill.KillProcExec(psTaskID);
-                Console.WriteLine("try external "+psTaskID);
+                bool killStatus = procKill.KillProcExec(psTaskID);
+                //Console.WriteLine("try external "+psTaskID);
                 if (killStatus)
                 {
                     psTaskID = -1;
                 }
             }
-            
+
             try
             {
                 //rh = new RequestHelp();
@@ -57,8 +53,6 @@ namespace HelloWorld
 
                 psTaskID = ps.Id;//将运行的process name 赋值给 paTaskName
 
-                Console.WriteLine("try ininer "+psTaskID);
-
                 ps.StandardInput.WriteLine(cmd + "&exit");
                 ps.StandardInput.AutoFlush = true;
 
@@ -71,7 +65,6 @@ namespace HelloWorld
             finally
             {
                 ps.Close();
-                //psTaskID = -1;
             }
 
         }
@@ -118,12 +111,23 @@ namespace HelloWorld
                         listBox1.Items.Add(ipaddr + " " + ipv6Zone);
                         break;
                     case "nothing":
-                        //MessageBox.Show("并不是ip有效类型。");
                         break;
                     default:
                         MessageBox.Show("无效值");
                         break;
                 }
+            }
+        }
+        private void OutputNmapHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            if (!String.IsNullOrEmpty(outLine.Data))
+            {
+                string res = outLine.Data;
+                StringBuilder sb = new StringBuilder(this.richTextBox1.Text);
+                this.richTextBox1.Text = sb.AppendLine(res).ToString();
+                this.richTextBox1.SelectionStart = this.richTextBox1.Text.Length;
+                this.richTextBox1.ScrollToCaret();
+
             }
         }
 
@@ -138,6 +142,51 @@ namespace HelloWorld
             string ipRes = rh.GetAsync("http://39.96.177.233");
             //string ipRes = rh.GetAsync("http://127.0.0.1:8081");
             MessageBox.Show(ipRes);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Process ps = null;
+            RegexUtils rgu = new RegexUtils();
+            string nmap = @"D:\VsProject\WinFormProject\RouteTracking\RouteTracking\tools\nmap\nmap.exe"; //测试
+            string ip = textBox1.Text;
+            int port = Convert.ToInt32(textBox2.Text);
+            string cmd = "";
+
+            if (rgu.IPCheck(ip) || port >= 0 && port <= 65535)
+            {
+                cmd = nmap + " -sT -p " + port + " " + ip;
+            }
+            else
+            {
+                MessageBox.Show("Please check whether the format of the IP address or port number you entered is correct.");
+                return;
+            }
+
+            try
+            {
+                ps = ProcessCmdUtils.ExecCmd();
+                ps.OutputDataReceived += new DataReceivedEventHandler(OutputNmapHandler);
+
+                ps.Start();
+
+                psTaskID = ps.Id;//将运行的process name 赋值给 paTaskName
+
+                ps.StandardInput.WriteLine(cmd + "&exit");
+                ps.StandardInput.AutoFlush = true;
+
+                ps.BeginOutputReadLine();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                ps.Close();
+            }
+
         }
     }
 }
