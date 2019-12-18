@@ -1,6 +1,7 @@
 ﻿using HelloWorld.utils;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -148,14 +149,20 @@ namespace HelloWorld
         {
             Process ps = null;
             RegexUtils rgu = new RegexUtils();
-            string nmap = @".\tools\nmap\nmap.exe"; //测试
+            string nmapPath =Environment.CurrentDirectory+"\\tools\\nmap\\nmap.exe"; //测试
+            if (!File.Exists(nmapPath))
+            {
+                MessageBox.Show("No Nmap tool");
+                return;
+            }
+
             string ip = textBox1.Text;
             int port = Convert.ToInt32(textBox2.Text);
             string cmd = "";
 
             if (rgu.IPCheck(ip) || port >= 0 && port <= 65535)
             {
-                cmd = nmap + " -sT -p " + port + " " + ip;
+                cmd = nmapPath + " -sT -p " + port + " " + ip;
             }
             else
             {
