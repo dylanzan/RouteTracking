@@ -148,7 +148,7 @@ namespace HelloWorld
         {
             Process ps = null;
             RegexUtils rgu = new RegexUtils();
-            string nmap = @"D:\VsProject\WinFormProject\RouteTracking\RouteTracking\tools\nmap\nmap.exe"; //测试
+            string nmap = @".\tools\nmap\nmap.exe"; //测试
             string ip = textBox1.Text;
             int port = Convert.ToInt32(textBox2.Text);
             string cmd = "";
@@ -176,7 +176,6 @@ namespace HelloWorld
                 ps.StandardInput.AutoFlush = true;
 
                 ps.BeginOutputReadLine();
-
             }
             catch (Exception)
             {
