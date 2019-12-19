@@ -5,10 +5,8 @@ namespace HelloWorld.utils
 {
     class ProcessCmdUtils
     {
-        private static Process ExecCmd()
+        private Process ExecCmd()
         {
-            //cmd = cmd.Trim().TrimEnd('&') + "&exit";
-
 
             Process p = null;
             try
@@ -49,8 +47,6 @@ namespace HelloWorld.utils
             {
                 ps.Close();
             }
-
-
             return false;
         }
 
@@ -62,7 +58,7 @@ namespace HelloWorld.utils
 
             try
             {
-                ps = ProcessCmdUtils.ExecCmd();
+                ps = this.ExecCmd();
                 ps.OutputDataReceived += new DataReceivedEventHandler(oh);
 
                 ps.Start();

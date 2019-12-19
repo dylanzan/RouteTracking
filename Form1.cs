@@ -77,39 +77,36 @@ namespace HelloWorld
                 this.richTextBox1.SelectionStart = this.richTextBox1.Text.Length;
                 this.richTextBox1.ScrollToCaret();
 
-                RegexUtils reu = new RegexUtils();
+                RegexUtils reu = null;
                 RequestHelp rh = null;
-                JsonParseUtils jsu = null;
 
                 char[] charParms = new char[] { '[', ']' };
                 string resEnd = resSqlit[resSqlit.Length - 1];
                 string ipaddr = resEnd.Trim(charParms);
 
-                //判断ip 类型
-                switch (reu.IPCheckForS(ipaddr))
+                Console.WriteLine(resEnd);
+
+                try
                 {
-                    case "ipv4":
-                        if (reu.IPCheck(ipaddr))
+                    reu = new RegexUtils();
+                    rh = new RequestHelp();
+                    if (reu.IPCheck(ipaddr)){
+                        string ipZone = rh.InquireIpInfo(ipaddr);
+
+                        if (ipZone != "No Value!")
                         {
-                            jsu = new JsonParseUtils();
-                            rh = new RequestHelp();
-                            string ipv4JsonResponse = rh.GetAsync("http://39.96.177.233/" + ipaddr);
-                            //string ipv4JsonResponse = rh.GetAsync("http://127.0.0.1:8081/" + ipaddr);
-                            string ipv4Zone = jsu.JsonParse(ipv4JsonResponse);
-                            listBox1.Items.Add(ipaddr + " " + ipv4Zone);
+                            listBox1.Items.Add(ipaddr + " " + ipZone);
+
                         }
-                        break;
-                    case "ipv6":
-                        jsu = new JsonParseUtils();
-                        rh = new RequestHelp();
-                        string ipv6Zone = rh.GetAsync("http://freeapi.ipip.net/" + ipaddr);
-                        listBox1.Items.Add(ipaddr + " " + ipv6Zone);
-                        break;
-                    case "nothing":
-                        break;
-                    default:
-                        MessageBox.Show("无效值");
-                        break;
+                        else
+                        {
+                            MessageBox.Show("无效值");
+                        }
+                    }
+                }
+                catch
+                {
+                    throw;
                 }
             }
         }
@@ -136,10 +133,18 @@ namespace HelloWorld
 
         private void button2_Click(object sender, EventArgs e)
         {
-            RequestHelp rh = new RequestHelp();
-            string ipRes = rh.GetAsync("http://39.96.177.233");
-            //string ipRes = rh.GetAsync("http://127.0.0.1:8081");
-            MessageBox.Show(ipRes);
+            RequestHelp rh = null;
+            try
+            {
+                rh = new RequestHelp();
+                string ipRes = rh.InquireLocalIp();
+                MessageBox.Show(ipRes);
+            }
+            catch
+            {
+                MessageBox.Show("获取本地地址信息，请求异常。");
+            }
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
