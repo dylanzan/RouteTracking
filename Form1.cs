@@ -124,11 +124,14 @@ namespace HelloWorld
             if (!String.IsNullOrEmpty(outLine.Data))
             {
                 string res = outLine.Data;
-                StringBuilder sb = new StringBuilder(this.richTextBox1.Text);
-                this.richTextBox1.Text = sb.AppendLine(res).ToString();
-                this.richTextBox1.SelectionStart = this.richTextBox1.Text.Length;
-                this.richTextBox1.ScrollToCaret();
-
+                string[] resSqlit = System.Text.RegularExpressions.Regex.Split(res.Trim(), "\\s+");
+                if (resSqlit.Length== 3)
+                {
+                    StringBuilder sb = new StringBuilder(this.richTextBox1.Text);
+                    this.richTextBox1.Text = sb.AppendLine(res).ToString();
+                    this.richTextBox1.SelectionStart = this.richTextBox1.Text.Length;
+                    this.richTextBox1.ScrollToCaret();
+                }
             }
         }
 
@@ -147,9 +150,11 @@ namespace HelloWorld
 
         private void button3_Click(object sender, EventArgs e)
         {
+            this.richTextBox1.Text = "";
             Process ps = null;
             RegexUtils rgu = new RegexUtils();
             string nmapPath =Environment.CurrentDirectory+"\\tools\\nmap\\nmap.exe"; //测试
+
             if (!File.Exists(nmapPath))
             {
                 MessageBox.Show("No Nmap tool");
@@ -157,21 +162,24 @@ namespace HelloWorld
             }
 
             string ip = textBox1.Text;
-            int port = Convert.ToInt32(textBox2.Text);
-            string cmd = "";
 
-            if (rgu.IPCheck(ip) || port >= 0 && port <= 65535)
-            {
-                cmd = nmapPath + " -sT -p " + port + " " + ip;
-            }
-            else
-            {
-                MessageBox.Show("Please check whether the format of the IP address or port number you entered is correct.");
-                return;
-            }
+            int port = 0;
+           
+
+            string cmd = "";
 
             try
             {
+                port = Convert.ToInt32(textBox2.Text);
+                if (rgu.IPCheck(ip) || port >= 0 && port <= 65535)
+                {
+                    cmd = nmapPath + " -sT -p " + port + " " + ip;
+                }
+                else
+                {
+                    MessageBox.Show("Please check whether the format of the IP address or port number you entered is correct.");
+                    return;
+                }
                 ps = ProcessCmdUtils.ExecCmd();
                 ps.OutputDataReceived += new DataReceivedEventHandler(OutputNmapHandler);
 
@@ -184,13 +192,20 @@ namespace HelloWorld
 
                 ps.BeginOutputReadLine();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                if(ex.GetType().ToString()== "System.FormatException")
+                {
+                    MessageBox.Show("请检测您输入的端口号，格式是否正确！");
+                        return;
+                }
             }
             finally
             {
-                ps.Close();
+                if (ps != null)
+                {
+                    ps.Close();
+                }
             }
 
         }
