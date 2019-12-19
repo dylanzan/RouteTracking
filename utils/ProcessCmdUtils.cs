@@ -5,7 +5,7 @@ namespace HelloWorld.utils
 {
     class ProcessCmdUtils
     {
-        public static Process ExecCmd()
+        private static Process ExecCmd()
         {
             //cmd = cmd.Trim().TrimEnd('&') + "&exit";
 
@@ -52,6 +52,33 @@ namespace HelloWorld.utils
 
 
             return false;
+        }
+
+        public delegate void OutHandler(object sendingProcess, DataReceivedEventArgs outLine);
+
+        public Process DoTask(string cmd, OutHandler oh)
+        {
+            Process ps = null;
+
+            try
+            {
+                ps = ProcessCmdUtils.ExecCmd();
+                ps.OutputDataReceived += new DataReceivedEventHandler(oh);
+
+                ps.Start();
+
+                ps.StandardInput.WriteLine(cmd + "&exit");
+                ps.StandardInput.AutoFlush = true;
+
+                ps.BeginOutputReadLine();
+
+            }
+            catch
+            {
+                throw;
+            }
+
+            return ps;
         }
     }
 }

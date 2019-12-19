@@ -25,7 +25,11 @@ namespace HelloWorld
 
             richTextBox1.Text = "";
             listBox1.Items.Clear();
+            ProcessCmdUtils pcm = null;
             Process ps = null;
+
+            string cmd = "";
+
 
             if (psTaskID != -1)
             {
@@ -40,24 +44,14 @@ namespace HelloWorld
 
             try
             {
-                //rh = new RequestHelp();
-
                 string address = textBox1.Text;
 
-                string cmd = "TRACERT.exe " + address;
+                cmd = "TRACERT.exe " + address;
 
-                ps = ProcessCmdUtils.ExecCmd();
-
-                ps.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
-
-                ps.Start();
+                pcm = new ProcessCmdUtils();
+                ps = pcm.DoTask(cmd, OutputHandler);
 
                 psTaskID = ps.Id;//将运行的process name 赋值给 paTaskName
-
-                ps.StandardInput.WriteLine(cmd + "&exit");
-                ps.StandardInput.AutoFlush = true;
-
-                ps.BeginOutputReadLine();
             }
             catch
             {
@@ -151,6 +145,7 @@ namespace HelloWorld
         private void button3_Click(object sender, EventArgs e)
         {
             this.richTextBox1.Text = "";
+            ProcessCmdUtils pcm = null;
             Process ps = null;
             RegexUtils rgu = new RegexUtils();
             string nmapPath =Environment.CurrentDirectory+"\\tools\\nmap\\nmap.exe"; //测试
@@ -164,7 +159,6 @@ namespace HelloWorld
             string ip = textBox1.Text;
 
             int port = 0;
-           
 
             string cmd = "";
 
@@ -180,17 +174,9 @@ namespace HelloWorld
                     MessageBox.Show("Please check whether the format of the IP address or port number you entered is correct.");
                     return;
                 }
-                ps = ProcessCmdUtils.ExecCmd();
-                ps.OutputDataReceived += new DataReceivedEventHandler(OutputNmapHandler);
 
-                ps.Start();
-
-                psTaskID = ps.Id;//将运行的process name 赋值给 paTaskName
-
-                ps.StandardInput.WriteLine(cmd + "&exit");
-                ps.StandardInput.AutoFlush = true;
-
-                ps.BeginOutputReadLine();
+                pcm = new ProcessCmdUtils();
+                ps = pcm.DoTask(cmd, OutputNmapHandler);
             }
             catch (Exception ex)
             {
