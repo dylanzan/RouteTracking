@@ -45,7 +45,22 @@ namespace HelloWorld.utils
                     {
                         jsu = new JsonParseUtils();
                         string ipv4JsonResponse = this.GetAsync("http://39.96.177.233/" + ipAddress);
-                        //string ipv4JsonResponse = rh.GetAsync("http://127.0.0.1:8081/" + ipaddr);
+                        /*if (!String.IsNullOrEmpty(ipv4JsonResponse)) //server端问题，有时需要请求两次，概率很小，以防万一
+                        {
+                            ipZone = jsu.JsonParse(ipv4JsonResponse);
+                        }
+                        else
+                        {
+                            ipv4JsonResponse = this.GetAsync("http://39.96.177.233/" + ipAddress);
+                            ipZone = jsu.JsonParse(ipv4JsonResponse);
+                        }*/
+
+                        if (String.IsNullOrEmpty(ipv4JsonResponse))
+                        {
+                            ipv4JsonResponse = this.GetAsync("http://39.96.177.233/" + ipAddress);
+                            ipZone = jsu.JsonParse(ipv4JsonResponse);
+                            break;
+                        }
                         ipZone = jsu.JsonParse(ipv4JsonResponse);
                     }
                     break;
@@ -56,7 +71,6 @@ namespace HelloWorld.utils
                 case "nothing":
                     break;
                 default:
-                    //MessageBox.Show("无效值");
                     ipZone = "No Value!";
                     break;
             }

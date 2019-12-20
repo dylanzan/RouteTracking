@@ -84,7 +84,7 @@ namespace HelloWorld
                 string resEnd = resSqlit[resSqlit.Length - 1];
                 string ipaddr = resEnd.Trim(charParms);
 
-                Console.WriteLine(resEnd);
+                //Console.WriteLine(resEnd);
 
                 try
                 {
