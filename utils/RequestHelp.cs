@@ -6,6 +6,10 @@ namespace HelloWorld.utils
 {
     class RequestHelp
     {
+        private const string TOKEN_KEY = "10001 qwertyuiop123456asdfghjkl";
+        private const string IPV4_REQUEST_URL = "http://39.96.177.233";
+        private const string IPV6_REQUEST_URL = "http://freeapi.ipip.net/";
+        private const string USER_AGENT_VALUE = "Chrome";
         private string GetAsync(string httpUrl)
         {
             HttpClient hc = null;
@@ -14,8 +18,8 @@ namespace HelloWorld.utils
             try
             {
                 hc = new HttpClient();
-                hc.DefaultRequestHeaders.Add("User-Agent", "Chrome");
-                hc.DefaultRequestHeaders.Add("Authorization", "10001 qwertyuiop123456asdfghjkl");
+                hc.DefaultRequestHeaders.Add("User-Agent", USER_AGENT_VALUE);
+                hc.DefaultRequestHeaders.Add("Authorization", TOKEN_KEY);
                 HttpResponseMessage hrm = hc.GetAsync(httpUrl).Result;
 
                 if (hrm.IsSuccessStatusCode)
@@ -45,10 +49,10 @@ namespace HelloWorld.utils
                     if (reu.IPCheck(ipAddress))
                     {
                         jsu = new JsonParseUtils();
-                        string ipv4JsonResponse = this.GetAsync("http://39.96.177.233/" + ipAddress);
+                        string ipv4JsonResponse = this.GetAsync(IPV4_REQUEST_URL + ipAddress);
                         if (String.IsNullOrEmpty(ipv4JsonResponse)) //server端问题，有时需要请求两次，才能成功
                         {
-                            ipv4JsonResponse = this.GetAsync("http://39.96.177.233/" + ipAddress);
+                            ipv4JsonResponse = this.GetAsync(IPV4_REQUEST_URL + ipAddress);
                             ipZone = jsu.JsonParse(ipv4JsonResponse);
                             break;
                         }
@@ -57,7 +61,7 @@ namespace HelloWorld.utils
                     break;
                 case ConstModel.IPV6:
                     jsu = new JsonParseUtils();
-                    ipZone = this.GetAsync("http://freeapi.ipip.net/" + ipAddress);
+                    ipZone = this.GetAsync(IPV6_REQUEST_URL + ipAddress);
                     break;
                 case ConstModel.NOTHING:
                     break;
@@ -68,19 +72,19 @@ namespace HelloWorld.utils
             return ipZone;
         }
 
-       public string InquireLocalIp()
+       public string InquireLocalIp() //暂时仅支持IPV4
         {
             string localIpZone = "";
             try
             {
-                localIpZone=this.GetAsync("http://39.96.177.233");
+                localIpZone=this.GetAsync(IPV4_REQUEST_URL);
                 if (!String.IsNullOrEmpty(localIpZone))
                 {
                     return localIpZone;
                 }
                 else //server端问题，有时需要请求两次，才能获取结果，出现此现象概率很低
                 {
-                    localIpZone= this.GetAsync("http://39.96.177.233");
+                    localIpZone= this.GetAsync(IPV4_REQUEST_URL);
                     return localIpZone;
                 }
             }

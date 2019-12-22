@@ -170,7 +170,7 @@ namespace HelloWorld
             try
             {
                 port = Convert.ToInt32(textBox2.Text);
-                if (rgu.IPCheck(ip) || port >= 0 && port <= 65535)
+                if (rgu.IPCheck(ip) || port >= ConstModel.MINIMUM_PORT_NUMBER && port <= ConstModel.MAXIMUM_PORT_NUMBER)
                 {
                     cmd = nmapPath + " -sT -p " + port + " " + ip;
                 }

@@ -27,6 +27,11 @@ namespace RouteTracking.model
         public const string IPV6 = "ipv6";
         public const string NOTHING = "nothing";
 
+        //Port params
+        public const int MAXIMUM_PORT_NUMBER = 65535;
+        public const int MINIMUM_PORT_NUMBER = 0;
+
+
         //异常常量
         public const string DATA_FORMAT_ERROR = "System.FormatException";
     }
