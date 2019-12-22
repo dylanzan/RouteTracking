@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using RouteTracking.model;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace HelloWorld.utils
@@ -19,14 +20,14 @@ namespace HelloWorld.utils
                 switch (address.AddressFamily)
                 {
                     case System.Net.Sockets.AddressFamily.InterNetwork:
-                        return "ipv4";
+                        return ConstModel.IPV4;
                     case System.Net.Sockets.AddressFamily.InterNetworkV6:
-                        return "ipv6";
+                        return ConstModel.IPV6;
                     default:
-                        return "nothing";
+                        return ConstModel.NOTHING;
                 }
             }
-            return "nothing";
+            return ConstModel.NOTHING;
         }
     }
 }

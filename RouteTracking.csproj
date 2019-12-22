@@ -89,6 +89,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="model\IpInfoModel.cs" />
+    <Compile Include="model\ConstModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utils\JsonParseUtils.cs" />

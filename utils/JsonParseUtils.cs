@@ -1,5 +1,6 @@
 ﻿using HelloWorld.model;
 using Newtonsoft.Json;
+using RouteTracking.model;
 
 namespace HelloWorld.utils
 {
@@ -12,7 +13,7 @@ namespace HelloWorld.utils
 
             string ipinfoRes = "";
             //Console.WriteLine(ipifo.code);
-            if (jsonRes != "")
+            if (!string.IsNullOrEmpty(jsonRes))
             {
                 IpInfoModel ipinfo = JsonConvert.DeserializeObject<IpInfoModel>(jsonRes);
                 ipinfoRes = string.Format(" Area:{0}  Local:{1}", ipinfo.data.cuntry, ipinfo.data.local);
@@ -20,7 +21,7 @@ namespace HelloWorld.utils
             }
             else
             {
-                return "plz try again.";
+                return ConstModel.PROMPT_RETRY;
             }
             return ipinfoRes;
         }

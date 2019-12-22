@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RouteTracking.model;
+using System;
 using System.Net.Http;
 
 namespace HelloWorld.utils
@@ -40,7 +41,7 @@ namespace HelloWorld.utils
             //判断ip 类型
             switch (reu.IPCheckForS(ipAddress))
             {
-                case "ipv4":
+                case ConstModel.IPV4:
                     if (reu.IPCheck(ipAddress))
                     {
                         jsu = new JsonParseUtils();
@@ -54,14 +55,14 @@ namespace HelloWorld.utils
                         ipZone = jsu.JsonParse(ipv4JsonResponse);
                     }
                     break;
-                case "ipv6":
+                case ConstModel.IPV6:
                     jsu = new JsonParseUtils();
                     ipZone = this.GetAsync("http://freeapi.ipip.net/" + ipAddress);
                     break;
-                case "nothing":
+                case ConstModel.NOTHING:
                     break;
                 default:
-                    ipZone = "No Value!";
+                    ipZone = ConstModel.NO_VALUE;
                     break;
             }
             return ipZone;

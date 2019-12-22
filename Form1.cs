@@ -1,4 +1,5 @@
 ﻿using HelloWorld.utils;
+using RouteTracking.model;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -29,7 +30,6 @@ namespace HelloWorld
             Process ps = null;
 
             string cmd = "";
-
 
             if (psTaskID != -1)
             {
@@ -93,14 +93,14 @@ namespace HelloWorld
                     if (reu.IPCheck(ipaddr)){
                         string ipZone = rh.InquireIpInfo(ipaddr);
 
-                        if (ipZone != "No Value!")
+                        if (ipZone != ConstModel.NO_VALUE)
                         {
                             listBox1.Items.Add(ipaddr + " " + ipZone);
 
                         }
                         else
                         {
-                            MessageBox.Show("无效值");
+                            MessageBox.Show(ConstModel.VOID_VALUE);
                         }
                     }
                 }
@@ -142,7 +142,7 @@ namespace HelloWorld
             }
             catch
             {
-                MessageBox.Show("获取本地地址信息，请求异常。");
+                MessageBox.Show(ConstModel.REQUEST_ERROR);
             }
            
         }
@@ -157,7 +157,7 @@ namespace HelloWorld
 
             if (!File.Exists(nmapPath))
             {
-                MessageBox.Show("No Nmap tool");
+                MessageBox.Show(ConstModel.TOOLS_ERROR_NMAP);
                 return;
             }
 
@@ -176,7 +176,7 @@ namespace HelloWorld
                 }
                 else
                 {
-                    MessageBox.Show("Please check whether the format of the IP address or port number you entered is correct.");
+                    MessageBox.Show(ConstModel.VOID_PARAMS);
                     return;
                 }
 
@@ -185,9 +185,9 @@ namespace HelloWorld
             }
             catch (Exception ex)
             {
-                if(ex.GetType().ToString()== "System.FormatException")
+                if(ex.GetType().ToString()== ConstModel.DATA_FORMAT_ERROR)
                 {
-                    MessageBox.Show("请检测您输入的端口号，格式是否正确！");
+                    MessageBox.Show(ConstModel.VOID_PORT_NUM);
                         return;
                 }
             }
