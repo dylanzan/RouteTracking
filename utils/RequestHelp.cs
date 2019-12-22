@@ -7,7 +7,7 @@ namespace HelloWorld.utils
     class RequestHelp
     {
         private const string TOKEN_KEY = "10001 qwertyuiop123456asdfghjkl";
-        private const string IPV4_REQUEST_URL = "http://39.96.177.233";
+        private const string IPV4_REQUEST_URL = "http://39.96.177.233/";
         private const string IPV6_REQUEST_URL = "http://freeapi.ipip.net/";
         private const string USER_AGENT_VALUE = "Chrome";
         private string GetAsync(string httpUrl)
@@ -72,7 +72,8 @@ namespace HelloWorld.utils
             return ipZone;
         }
 
-       public string InquireLocalIp() //暂时仅支持IPV4
+        //暂时仅支持IPV4
+        public string InquireLocalIp() 
         {
             string localIpZone = "";
             try

@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RouteTracking.exe" size="24048">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RouteTracking.exe" size="24560">
       <assemblyIdentity name="RouteTracking" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nBWQdRCMf6+kOLMPjqqRDpAZsYYRZHfRED2G34kK+b8=</dsig:DigestValue>
+        <dsig:DigestValue>vHymXDa4miZJZ0sF3GLE1+fI75QOSLcak5J+1tiZMnY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

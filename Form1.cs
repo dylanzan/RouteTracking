@@ -92,7 +92,7 @@ namespace HelloWorld
                     rh = new RequestHelp();
                     if (reu.IPCheck(ipaddr)){
                         string ipZone = rh.InquireIpInfo(ipaddr);
-
+                        //Console.WriteLine(ipZone);
                         if (ipZone != ConstModel.NO_VALUE)
                         {
                             listBox1.Items.Add(ipaddr + " " + ipZone);
