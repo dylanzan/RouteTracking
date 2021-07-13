@@ -1,3 +1,0 @@
-D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Release\HelloWorld.Form1.resources
-D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Release\RouteTracking.Properties.Resources.resources
-D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Release\RouteTracking.csproj.GenerateResource.cache
