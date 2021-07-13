@@ -14,3 +14,10 @@ D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\RouteTracking.
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\bin\Debug\RouteTracking.application
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.exe.manifest
 D:\VsProject\WinFormProject\RouteTracking\RouteTracking\obj\Debug\RouteTracking.application
+Z:\Documents\github\RouteTracking\obj\Debug\RouteTracking.csprojAssemblyReference.cache
+Z:\Documents\github\RouteTracking\obj\Debug\HelloWorld.Form1.resources
+Z:\Documents\github\RouteTracking\obj\Debug\RouteTracking.Properties.Resources.resources
+Z:\Documents\github\RouteTracking\obj\Debug\RouteTracking.csproj.GenerateResource.cache
+Z:\Documents\github\RouteTracking\obj\Debug\RouteTracking.csproj.CoreCompileInputs.cache
+Z:\Documents\github\RouteTracking\obj\Debug\RouteTracking.exe
+Z:\Documents\github\RouteTracking\obj\Debug\RouteTracking.pdb
