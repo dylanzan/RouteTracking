@@ -14,7 +14,7 @@ namespace HelloWorld
         public Form1()
         {
             InitializeComponent();
-            ConfigUtils config = new ConfigUtils(); //init config
+            new ConfigUtils(); //init config
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -156,7 +156,22 @@ namespace HelloWorld
             ProcessCmdUtils pcm = null;
             Process ps = null;
             RegexUtils rgu = new RegexUtils();
-            string nmapPath =Environment.CurrentDirectory+"\\tools\\nmap\\nmap.exe"; //测试
+
+            string nmapPath = "";
+            string isDebug = ConfigUtils.ConfigDict[ConstModel.KEY_ISDEBUG];
+            switch (isDebug)
+            {
+                case "0":
+                    //正式环境
+                    nmapPath = Environment.CurrentDirectory + "\\tools\\nmap\\nmap.exe";
+                    break;
+                case "1":
+                default:
+                    //DEBUG:此处待修改，该路径在实际环境中，可能会无法使用
+                    //测试环境
+                    nmapPath = @"..\..\tools\nmap\nmap.exe"; 
+                    break;
+            }
 
             if (!File.Exists(nmapPath))
             {

@@ -16,3 +16,13 @@
 -tools： 存放各调用插件，如nmap等
 
 ```
+
+## 配置文件
+```xml
+App.config:
+	<add key="isDebug" value="1"/>
+	value:
+		-1:开启debug模式，使用测试环境
+		-0：正式生产环境
+
+```
