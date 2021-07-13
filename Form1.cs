@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using RouteTracking.utils;
 
 namespace HelloWorld
 {
@@ -13,11 +14,13 @@ namespace HelloWorld
         public Form1()
         {
             InitializeComponent();
+            ConfigUtils config = new ConfigUtils(); //init config
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
+            
         }
 
         static int psTaskID = -1; //检测是否有上次执行的task，如果值为-1，则执行，否则kill掉上次执行未完成任务

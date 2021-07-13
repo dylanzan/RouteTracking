@@ -1,15 +1,16 @@
 ﻿using RouteTracking.model;
 using System;
 using System.Net.Http;
+using RouteTracking.utils;
 
 namespace HelloWorld.utils
 {
     class RequestHelp
     {
-        private const string TOKEN_KEY = "10001 qwertyuiop123456asdfghjkl";
-        private const string IPV4_REQUEST_URL = "http://101.133.135.241/";
-        private const string IPV6_REQUEST_URL = "http://freeapi.ipip.net/";
-        private const string USER_AGENT_VALUE = "Chrome";
+        private string TOKEN_KEY = ConfigUtils.ConfigDict[ConstModel.KEY_SERVER_TOKEN];
+        private string IPV4_REQUEST_URL = ConfigUtils.ConfigDict[ConstModel.KEY_IPV4_ADDRESS];
+        private string IPV6_REQUEST_URL = ConfigUtils.ConfigDict[ConstModel.KEY_IPV6_ADDRESS];
+        private const string USER_AGENT_VALUE = ConstModel.CHROME_USER_AGENT;
         private string GetAsync(string httpUrl)
         {
             HttpClient hc = null;

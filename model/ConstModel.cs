@@ -27,6 +27,13 @@ namespace RouteTracking.model
         public const string IPV6 = "ipv6";
         public const string NOTHING = "nothing";
 
+
+        public const string KEY_IPV4_ADDRESS = "Ipv4InfoAddress";
+        public const string KEY_IPV6_ADDRESS = "Ipv6InfoAddress";
+        public const string KEY_SERVER_TOKEN = "ServerTokenKeys";
+
+        public const string CHROME_USER_AGENT = "Chrome";
+
         //Port params
         public const int MAXIMUM_PORT_NUMBER = 65535;
         public const int MINIMUM_PORT_NUMBER = 0;
