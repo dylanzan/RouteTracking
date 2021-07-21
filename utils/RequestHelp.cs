@@ -51,12 +51,6 @@ namespace HelloWorld.utils
                     {
                         jsu = new JsonParseUtils();
                         string ipv4JsonResponse = this.GetAsync(IPV4_REQUEST_URL + ipAddress);
-                        if (String.IsNullOrEmpty(ipv4JsonResponse)) //server端问题，有时需要请求两次，才能成功
-                        {
-                            ipv4JsonResponse = this.GetAsync(IPV4_REQUEST_URL + ipAddress);
-                            ipZone = jsu.JsonParse(ipv4JsonResponse);
-                            break;
-                        }
                         ipZone = jsu.JsonParse(ipv4JsonResponse);
                     }
                     break;
@@ -80,15 +74,7 @@ namespace HelloWorld.utils
             try
             {
                 localIpZone=this.GetAsync(IPV4_REQUEST_URL);
-                if (!String.IsNullOrEmpty(localIpZone))
-                {
-                    return localIpZone;
-                }
-                else //server端问题，有时需要请求两次，才能获取结果，出现此现象概率很低
-                {
-                    localIpZone= this.GetAsync(IPV4_REQUEST_URL);
-                    return localIpZone;
-                }
+                return localIpZone; 
             }
             catch
             {
