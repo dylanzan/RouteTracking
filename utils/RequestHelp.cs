@@ -10,7 +10,7 @@ namespace HelloWorld.utils
         private string TOKEN_KEY = ConfigUtils.ConfigDict[ConstModel.KEY_SERVER_TOKEN];
         private string IPV4_REQUEST_URL = ConfigUtils.ConfigDict[ConstModel.KEY_IPV4_ADDRESS];
         private string IPV6_REQUEST_URL = ConfigUtils.ConfigDict[ConstModel.KEY_IPV6_ADDRESS];
-        private const string USER_AGENT_VALUE = ConstModel.CHROME_USER_AGENT;
+        private string USER_AGENT_VALUE = ConfigUtils.ConfigDict[ConstModel.KEY_CLIENT_VERSION];
         private string GetAsync(string httpUrl)
         {
             HttpClient hc = null;
